@@ -3,7 +3,6 @@ on:
   workflow_dispatch:
   push:
     branches: ['main']
-    tags: ['v*']
 permissions:
   contents: read
 jobs:
@@ -13,23 +12,31 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install compiler
         shell: pwsh
-        run: choco install innosetup --version=6.7.3 --yes --no-progress
+        run: |
+          $setup = Join-Path $env:RUNNER_TEMP 'inno.exe'
+          Invoke-WebRequest 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe' -OutFile $setup
+          if ((Get-AuthenticodeSignature $setup).Status -ne 'Valid') { throw 'Invalid compiler signature' }
+          $p = Start-Process $setup -ArgumentList '/VERYSILENT','/CURRENTUSER','/NORESTART' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw 'Compiler installation failed' }
       - name: Build installer
         shell: pwsh
-        run: |
-          $env:PATH += ';C:\Program Files (x86)\Inno Setup 6'
-          ./installer/Build-Installer.ps1
+        run: ./installer/Build-Installer.ps1
       - name: Verify installation lifecycle
         shell: pwsh
         run: ./installer/Test-Installer.ps1 -Installer (Get-ChildItem ../releases/Paperboat-Setup-*.exe | Select-Object -First 1).FullName
       - name: Calculate checksum
         shell: pwsh
         run: Get-FileHash ../releases/*.exe -Algorithm SHA256 | Format-List | Out-File ../releases/SHA256.txt
+      - name: Collect build output
+        if: always()
+        shell: pwsh
+        run: |
+          New-Item artifacts -ItemType Directory -Force | Out-Null
+          if (Test-Path ../releases) { Copy-Item ../releases/* artifacts -Force }
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: paperboat-windows-test-results
           path: |
-            ../releases/*
+            artifacts/*
             installer/test-results/*
-
