@@ -4,7 +4,7 @@ on:
   push:
     branches: ['main']
 permissions:
-  contents: read
+  contents: write
 jobs:
   installer:
     runs-on: windows-2022
@@ -27,6 +27,13 @@ jobs:
       - name: Calculate checksum
         shell: pwsh
         run: Get-FileHash ../releases/*.exe -Algorithm SHA256 | Format-List | Out-File ../releases/SHA256.txt
+      - name: Publish preview installer
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = 'v0.5.0-preview.' + ${{ github.run_number }}
+          gh release create $tag ../releases/*.exe ../releases/SHA256.txt --target $env:GITHUB_SHA --prerelease --title "纸舟 Windows 测试版 $tag" --notes "Windows x64 安装包。已通过自动安装、同版本覆盖安装、图标关联、快捷方式和卸载保留数据检查。尚未完成 Windows 10/11 桌面交互及真实旧版本升级验收。缺少 WebView2 时需要联网安装运行环境。"
       - name: Collect build output
         if: always()
         shell: pwsh
