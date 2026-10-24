@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>纸舟</title><link rel="icon" href="boat.svg" type="image/svg+xml"><link rel="stylesheet" href="app.css"><script src="app.js" defer></script><script src="reader-shortcuts.js" defer></script><script src="reader-ocr.js" defer></script></head>
+<body>
+  <link rel="stylesheet" href="refinement.css">
+  <link rel="stylesheet" href="polish.css"><link rel="stylesheet" href="chrome.css"><script src="chrome.js" defer></script>
+  <script src="components.js" defer></script>
+  <script src="window-controls.js" defer></script>
+  <script src="desktop-bridge.js" defer></script>
+  <script src="reader-gestures.js" defer></script>
+  <script src="reader-toolbar.js" defer></script>
+  <header class="titlebar">
+    <a class="brand" href="#" id="home" aria-label="纸舟 Paperboat，返回主页" title="返回主页"><img src="boat.svg" alt=""><b>纸舟</b><span>Paperboat</span></a>
+    <div class="segmented" aria-label="工作区"><button data-workspace="library" class="selected">书架</button><button data-workspace="reader" disabled>阅读与批注</button><button data-workspace="organizer" disabled>页面整理</button></div>
+    <div class="title-actions"><button id="themeButton" title="切换阅读配色">◐ <span>柔白</span></button><button id="settingsButton" title="设置">设置</button><span class="window-controls" hidden><button data-window="minimize" aria-label="最小化">−</button><button data-window="maximize" aria-label="最大化或还原">□</button><button data-window="close" class="window-close" aria-label="关闭">×</button></span></div>
+  </header>
+  <main id="library" class="workspace library">
+    <aside class="library-nav"><span class="overline">我的空间</span><button data-filter="all" class="selected">全部文档 <span id="fileCount">0</span></button><button data-filter="recent">最近阅读</button><button data-filter="favorites">我的收藏</button><div class="local-note"><span class="status-dot"></span> 本地阅读<br><small>无需账号 · 文件留在设备上</small></div><button id="helpButton" class="help">功能与使用说明 ↗</button></aside>
+    <div class="library-content">
+      <div class="greeting"><div><span class="overline">我的文档</span><h1>我的文档</h1><p>继续上次的阅读，或把新的 PDF 放进来。</p></div><button class="primary" id="openButton">＋ 打开 PDF</button></div>
+      <div class="drop-zone" id="dropZone" tabindex="0" role="button" aria-label="选择或拖放 PDF 文件"><img src="boat.svg" alt=""><div><b>把 PDF 放在这里</b><p>支持多文件导入，也可以点击选择 · Ctrl + O</p></div><span>↗</span></div>
+      <div class="library-heading"><h2 id="libraryTitle">全部文档</h2><input id="librarySearch" type="search" placeholder="查找文件名称…" aria-label="查找书架"><button id="imagePdfButton">图片转 PDF</button><button id="sampleButton">试读示例</button></div>
+      <div id="documents" class="documents" aria-live="polite"></div><div id="empty" class="empty"><h3>书架从第一份文档开始</h3><p>导入的文档、阅读进度与批注会保存在本机浏览器中。<br>清除浏览器数据会删除这些副本，请及时导出重要文档。</p></div>
+      <div class="library-foot"><span></span><span>纸舟 0.5 · 本地预览版</span></div>
+    </div>
+  </main>
+  <section id="reader" class="workspace reader" hidden>
+    <div class="document-bar"><div class="doc-identity"><strong id="documentName"></strong><span id="saveStatus" role="status">已打开</span></div><div class="doc-actions"><button id="undoMarkupButton" hidden>撤销线标记</button><button id="bookmarkButton" title="收藏当前页">＋ 页签</button><button id="bookmarksButton">页签</button><button id="notesButton">批注导出</button><button id="exportTextButton">导出文字</button><button id="exportImageButton">导出当前页图片</button><button id="saveButton" class="primary">导出 PDF</button></div></div>
+    <iframe id="viewer" title="PDF 阅读和批注工作区" allow="fullscreen"></iframe>
+    <div class="zoom-dock" id="zoomDock" hidden>
+      <button class="zoom-step" id="zoomOut" type="button" aria-label="缩小">−</button>
+      <input id="zoomSlider" class="zoom-slider" type="range" min="25" max="400" step="1" value="100" aria-label="缩放比例">
+      <label class="zoom-value"><input id="zoomInput" type="number" min="25" max="400" step="1" value="100" aria-label="缩放百分比"><span>%</span></label>
+      <button class="zoom-step" id="zoomIn" type="button" aria-label="放大">＋</button>
+      <button class="zoom-more" id="zoomMore" type="button" aria-label="缩放选项" aria-haspopup="true" aria-expanded="false">⌄</button>
+      <div class="zoom-menu" id="zoomMenu" hidden>
+        <button type="button" data-zoom="page-width">适合宽度</button>
+        <button type="button" data-zoom="page-fit">适合页面</button>
+        <button type="button" data-zoom="page-actual">实际大小</button>
+        <span class="zoom-menu-line"></span>
+        <button type="button" data-zoom-preset="50">50%</button>
+        <button type="button" data-zoom-preset="75">75%</button>
+        <button type="button" data-zoom-preset="100">100%</button>
+        <button type="button" data-zoom-preset="150">150%</button>
+        <button type="button" data-zoom-preset="200">200%</button>
+      </div>
+    </div>
+    <div id="readerLoading" class="reader-loading" hidden>正在打开文档…</div>
+  </section>
+  <section id="organizer" class="workspace organizer" hidden>
+    <div class="organizer-heading"><div><span class="overline">ORGANIZE PAGES</span><h1>让每一页，各就其位。</h1><p>勾选页面后操作。应用整理会另存为新文档，原文件保留。</p></div><button class="primary" id="applyPages">应用整理并打开</button></div>
+    <div class="organizer-tools"><button id="selectAll">全选</button><button id="rotatePages">旋转 90°</button><button id="moveEarlier">前移</button><button id="moveLater">后移</button><button id="duplicatePages">复制页</button><button id="deletePages">移除页</button><button id="extractPages">提取所选</button><button id="insertBlank">插入空白页</button><button id="mergeFiles">合并 PDF</button><button id="undoPages">撤销</button></div>
+    <div class="organizer-note">页面整理会重建文档结构；交互表单、目录、内部链接和证书签名不保证保留，请保留原文件。</div><div id="pageCount" class="muted"></div><div id="pageGrid" class="page-grid"></div>
+  </section>
+  <input id="fileInput" type="file" accept=".pdf,application/pdf" multiple hidden><input id="mergeInput" type="file" accept=".pdf,application/pdf" multiple hidden><input id="imageInput" type="file" accept="image/jpeg,image/png" multiple hidden>
+  <dialog id="settingsDialog"><form method="dialog"><div class="dialog-head"><h2>让纸舟更合心意</h2><button aria-label="关闭">×</button></div><label>阅读配色<select id="themeSelect"><option value="light">柔白</option><option value="warm">暖纸</option><option value="sage">浅绿</option><option value="dark">夜读</option></select></label><p class="muted">配色只影响屏幕显示，不改变导出的 PDF。暖纸与浅绿会轻微改变屏幕图片色彩；检查设计稿时请用柔白。</p><label>自动保存本机副本<input type="checkbox" id="autoSave" checked></label><p class="muted">浏览器本地副本不是原文件。请用「导出 PDF」保存可携带的文件。关闭窗口前等待“本机副本已保存”。</p><button type="button" id="backupAll">备份书架中的全部 PDF</button><p id="storageInfo" class="muted"></p><p class="muted">快捷键：Ctrl+O 打开 · Ctrl+S 导出 · Ctrl+F 文内搜索 · Esc 退出弹窗</p></form></dialog>
+  <dialog id="textDialog"><div class="dialog-head"><h2 id="textTitle"></h2><button id="closeText" aria-label="关闭">×</button></div><p id="textDescription" class="muted"></p><textarea id="textOutput" spellcheck="false" aria-label="导出文本"></textarea><div class="dialog-actions"><button id="downloadText" class="primary">下载文本</button><button id="copyText">复制文字</button></div></dialog>
+  <dialog id="bookmarksDialog"><div class="dialog-head"><h2>我的页签</h2><button id="closeBookmarks" aria-label="关闭">×</button></div><div id="bookmarkList"></div></dialog>
+  <div id="selectionTools" class="selection-tools" hidden><span>所选文字</span><button id="underlineButton">下划线</button><button id="strikeButton">删除线</button></div>
+  <div id="toast" class="toast" role="status"></div><div id="busy" class="busy" hidden><div><span class="spinner"></span><p id="busyLabel"></p></div></div><noscript>请启用 JavaScript 后使用纸舟。</noscript>
+</body></html>

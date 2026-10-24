@@ -1,0 +1,28 @@
+:root{color-scheme:light;--body-bg-color:#eef1ed;--toolbar-bg-color:#fafbf9;--toolbar-border-color:#e1e7e0;--text-color:#2e3c33;--main-color:#2e3c33;--button-primary-bg-color:#477d65;--button-background-color-primary:#477d65;--sidebar-bg-color:#f8faf6;--field-bg-color:#fff;--field-color:#2e3c33;--field-border-color:#dce4da;--doorhanger-bg-color:#fff;--doorhanger-border-color:#dce4da;--button-hover-color:#e4eee4;--button-active-color:#d6e6d8;--focus-ring-color:#689984;--toggled-btn-bg-color:#d6e6d8}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif;background:#eef1ed}
+#toolbarContainer{box-shadow:none;border-bottom:1px solid #dfe6dc}
+.toolbarButton,.dropdownToolbarButton{border-radius:7px!important}
+.pdfViewer .page{border-image:none!important;box-shadow:0 3px 18px #20372512;border:0!important;margin-bottom:18px}
+#viewerContainer{background:#eef1ed;padding-bottom:64px}
+#secondaryOpenFile,#openFile{display:none!important}
+/* Zoom lives in the app's bottom-right dock; hide the native toolbar controls. */
+#zoomOutButton,#zoomInButton,#scaleSelectContainer{display:none!important}
+:root[data-paperboat-theme=warm] #viewerContainer{background:#e8e3d7}
+:root[data-paperboat-theme=warm] .pdfViewer .page{filter:sepia(.2)}
+:root[data-paperboat-theme=sage] #viewerContainer{background:#e2ebdf}
+:root[data-paperboat-theme=sage] .pdfViewer .page{filter:sepia(.12) hue-rotate(35deg)}
+:root[data-paperboat-theme=dark]{color-scheme:dark;--body-bg-color:#232925;--toolbar-bg-color:#303832;--toolbar-border-color:#414d43;--text-color:#e5ece6;--main-color:#e5ece6;--sidebar-bg-color:#29312b;--field-bg-color:#3c493f;--field-color:#e5ece6;--doorhanger-bg-color:#303832}
+:root[data-paperboat-theme=dark] #viewerContainer{background:#232925}
+:root[data-paperboat-theme=dark] .pdfViewer .page{filter:invert(.87) hue-rotate(180deg)}
+@media print{.pdfViewer .page{filter:none!important}}
+/* Keep native editor behavior; refine all toolbar and dialog surfaces. */
+.toolbarButton,.dropdownToolbarButton,button,input,select{transition:background-color .18s,border-color .18s,box-shadow .18s}
+.toolbarButton:focus-visible,button:focus-visible{outline:2px solid var(--focus-ring-color);outline-offset:2px}
+dialog{border-radius:18px!important;box-shadow:0 24px 80px #182c2426!important}
+dialog[open],.doorHanger:not(.hidden),.doorHangerRight:not(.hidden){animation:paperboat-appear .2s cubic-bezier(.22,1,.36,1)}
+dialog::backdrop{backdrop-filter:blur(6px)}
+#sidebarContainer{border-right:1px solid var(--toolbar-border-color)}
+#secondaryToolbar,#findbar{border-radius:12px;box-shadow:0 8px 28px #182c241a}
+.thumbnailSelectionRing{border-radius:8px}
+@keyframes paperboat-appear{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

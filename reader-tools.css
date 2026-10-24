@@ -1,0 +1,8 @@
+.paperboatToolButton{height:100%;aspect-ratio:1;display:inline-flex;align-items:center;justify-content:center;position:relative;flex:none;border:0;border-radius:8px;background:transparent;color:var(--main-color);padding:0;cursor:pointer}
+.paperboatToolButton:hover{background:var(--button-hover-color)}
+.paperboatToolButton.toggled{background:var(--toggled-btn-bg-color);color:var(--toggled-btn-color)}
+#paperboatSelect::before,#paperboatSelect::after,#paperboatEraser::before,#paperboatEraser::after{content:none!important;display:none!important;mask:none!important;background:none!important}
+#paperboatSelect,#paperboatEraser{display:inline-flex;align-items:center;justify-content:center;background-image:none!important}
+.editorParamsToolbar:not(.menu){border-radius:14px!important;box-shadow:0 8px 28px #162b2020!important;padding:14px!important;border:1px solid var(--doorhanger-border-color)!important}
+#viewerContainer{overflow-anchor:none}
+.paperboat-marquee{position:absolute;box-sizing:border-box;border:1px solid #477d65;background:#477d6522;pointer-events:none;z-index:100;border-radius:3px}.paperboat-region-selected{background:#477d6540!important}

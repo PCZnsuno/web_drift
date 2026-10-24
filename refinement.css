@@ -1,0 +1,54 @@
+/* Shared component treatment: soft surfaces, precise focus, restrained motion. */
+/* Desktop header: a single calm navigation surface. */
+.desktop-host{--header-height:60px}.desktop-host .titlebar{height:60px;display:grid;grid-template-columns:minmax(160px,1fr) auto minmax(230px,1fr)}.desktop-host .title-actions{justify-self:end}.desktop-host .brand{display:grid;grid-template-columns:30px minmax(0,1fr);grid-template-rows:20px 15px;column-gap:10px;max-width:100%;min-width:0!important}.desktop-host .brand img{grid-row:1/3;width:30px;height:30px}.desktop-host .brand b{font-size:13px;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.desktop-host .brand span{grid-column:2;font-size:10px}.desktop-host .library,.desktop-host .reader,.desktop-host .organizer{height:calc(100vh - 60px)}
+.titlebar{padding-inline:22px!important;gap:16px!important;background:var(--panel)!important;border-bottom:1px solid var(--line);box-shadow:0 1px 12px #263a2d04}
+.titlebar .brand{gap:9px;min-width:170px}.titlebar .brand span{letter-spacing:1.5px;font-size:10px;opacity:.7}
+.titlebar .segmented{background:transparent;border:0;box-shadow:none;padding:4px;gap:8px}.titlebar .segmented button{padding:9px 19px;border-radius:12px}.titlebar .segmented .selected{background:var(--soft);box-shadow:none;color:var(--accent)}
+.titlebar .window-controls{gap:5px;border-left:1px solid var(--line);padding-left:12px;margin-left:12px}.titlebar .window-controls button{width:32px;height:32px;border-radius:50%;font-size:18px;line-height:1}.titlebar .window-controls button:hover{background:var(--soft)}.titlebar .window-controls .window-close:hover{background:#f7dfdc;color:#a33b35}
+:root{--muted:#64746b;--ease:cubic-bezier(.22,1,.36,1);--shadow:0 8px 32px #263a2d09}
+button,input,select,textarea{transition:background-color .2s,border-color .2s,box-shadow .2s,transform .2s var(--ease)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button:not(:disabled):active{transform:scale(.97)}button.primary{box-shadow:0 3px 9px #294b3320;border-radius:12px}
+.titlebar{background:color-mix(in srgb,var(--panel) 92%,transparent);backdrop-filter:blur(18px)}
+.titlebar{user-select:none}.window-controls{display:flex;margin-left:8px}.window-controls button{width:38px;height:34px;padding:0;border-radius:10px;font-size:16px}.window-controls .window-close:hover{background:#e85b55;color:white}.title-actions{align-items:center}
+.segmented{border:1px solid var(--line);padding:4px;border-radius:14px}.segmented button{border-radius:10px}
+.library-nav{background:var(--panel)}.library-nav>button{border-radius:12px}
+.greeting h1{font-size:36px;line-height:1.35;font-weight:550}.greeting p{letter-spacing:.5px}
+.drop-zone{border-style:solid;background:linear-gradient(125deg,var(--surface),var(--panel));border-color:var(--line);border-radius:22px;transition:background .2s,box-shadow .2s,transform .25s var(--ease)}
+.drop-zone:hover{box-shadow:var(--shadow);transform:translateY(-2px)}
+.document-card{border-radius:18px;transition:transform .25s var(--ease),box-shadow .25s,border-color .25s}
+.document-card:hover{transform:translateY(-3px);box-shadow:0 14px 36px #263a2d14;border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.preview{background:linear-gradient(135deg,var(--panel),var(--soft));height:174px}.document-info{padding:18px 16px 12px}
+.card-actions button{color:var(--ink)}.document-bar{gap:12px;padding:12px 20px}.doc-actions{flex-wrap:wrap;justify-content:flex-end;flex-shrink:1}.doc-identity{flex:1;min-width:140px}
+.doc-actions button{border-radius:10px}.organizer-tools{border-radius:16px;box-shadow:var(--shadow)}
+.page-tile{border-radius:16px;transition:border-color .2s,box-shadow .2s}.page-tile:hover{box-shadow:var(--shadow)}
+dialog{padding:28px;border-radius:24px;box-shadow:0 32px 100px #15251e29;max-height:88vh;overflow:auto}
+dialog[open]{animation:sheet-in .24s var(--ease)}dialog::backdrop{background:#172c243d;backdrop-filter:blur(7px);animation:veil-in .2s}
+.dialog-head{margin-bottom:22px}.dialog-head h2{font-size:19px;letter-spacing:-.3px}.dialog-head button{width:32px;height:32px;border-radius:50%;background:var(--panel);font-size:21px}
+.dialog-actions{justify-content:flex-end;padding-top:10px}dialog label{gap:18px}dialog input[type=text]{min-width:0;width:100%}
+input,select,textarea{border-radius:11px}input:hover,select:hover,textarea:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+#inkDialog{width:min(1150px,96vw);max-height:96vh;padding:20px}#inkDialog .dialog-head{margin-bottom:12px}#inkDialog h2 small{font-size:11px;color:var(--accent);background:var(--soft);padding:5px 8px;border-radius:9px;margin-left:10px}.ink-tools{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.ink-tools label{margin:0;gap:6px;font-size:12px}.ink-tools input[type=color]{width:38px;height:34px;padding:4px}.ink-tools input[type=range]{width:90px}#inkViewport{height:58vh;overflow:auto;background:var(--soft);padding:16px;border-radius:14px;margin-top:14px}#inkSheet{position:relative;width:min(700px,100%);margin:auto;background:white;box-shadow:var(--shadow)}#inkPaper{display:block;width:100%;height:100%}#inkCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}#inkStatus{font-size:12px;color:var(--muted)}
+@supports(transition-behavior:allow-discrete){dialog{opacity:0;transform:translateY(8px);transition:opacity .18s,transform .18s,display .18s allow-discrete,overlay .18s allow-discrete}dialog[open]{opacity:1;transform:none}}
+.workspace:not([hidden]){animation:workspace-in .24s var(--ease)}
+.selection-tools{border-radius:16px;padding:8px;box-shadow:0 8px 32px #182c2420}.toast{border-radius:16px;box-shadow:0 10px 32px #182c2420}
+@keyframes sheet-in{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes veil-in{from{opacity:0}to{opacity:1}}
+@keyframes workspace-in{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.greeting h1{font-size:27px}.document-bar{padding:10px}.doc-actions{justify-content:flex-start}.library-content{padding:24px 16px}dialog{padding:22px}.preview{height:150px}}
+/* 窄窗口（高 DPI 笔记本、非最大化的应用窗口）：标题栏两侧的 min-width 会把整页撑宽，
+   右侧的配色/设置/窗口按钮被挤出可视区。这里让它们可以收缩，保证控件始终可见。 */
+@media(max-width:1150px){
+  .titlebar{padding:0 16px;gap:12px}
+  .brand{min-width:0;gap:8px}
+  .brand span{display:none}
+  .title-actions{min-width:0;gap:2px}
+  .title-actions button{padding:8px 10px}
+  .segmented button{padding:7px 13px}
+  .window-controls button{padding:8px 9px}
+}
+@media(max-width:900px){
+  .brand b{font-size:16px;letter-spacing:1px}
+  .segmented button{padding:7px 10px;font-size:12px}
+  .title-actions button{padding:7px 8px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}

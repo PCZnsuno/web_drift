@@ -1,0 +1,34 @@
+Local OCR components
+
+Tesseract.js 5.1.1 and tesseract.js-core 5.1.1: Apache-2.0.
+https://github.com/naptha/tesseract.js
+https://github.com/naptha/tesseract.js-core
+English and Simplified Chinese language data: tessdata 4.0.0, Apache-2.0.
+https://tessdata.projectnaptha.com/4.0.0/
+The complete Apache license is included as TESSERACT-LICENSE.txt.
+
+@pdf-lib/fontkit 1.1.1: MIT, author Andrew Dillon, contributor Devon Govett.
+https://github.com/Hopding/fontkit
+The published package declares MIT but does not contain a standalone license file.
+The standard MIT permission text follows (upstream package metadata retained).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+Noto Sans SC: SIL Open Font License 1.1, see OFL.txt.
+https://github.com/google/fonts/tree/main/ofl/notosanssc

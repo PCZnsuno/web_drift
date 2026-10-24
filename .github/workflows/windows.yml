@@ -1,0 +1,35 @@
+name: Windows installer verification
+on:
+  workflow_dispatch:
+  push:
+    branches: ['main']
+    tags: ['v*']
+permissions:
+  contents: read
+jobs:
+  installer:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install compiler
+        shell: pwsh
+        run: choco install innosetup --version=6.7.3 --yes --no-progress
+      - name: Build installer
+        shell: pwsh
+        run: |
+          $env:PATH += ';C:\Program Files (x86)\Inno Setup 6'
+          ./installer/Build-Installer.ps1
+      - name: Verify installation lifecycle
+        shell: pwsh
+        run: ./installer/Test-Installer.ps1 -Installer (Get-ChildItem ../releases/Paperboat-Setup-*.exe | Select-Object -First 1).FullName
+      - name: Calculate checksum
+        shell: pwsh
+        run: Get-FileHash ../releases/*.exe -Algorithm SHA256 | Format-List | Out-File ../releases/SHA256.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: paperboat-windows-test-results
+          path: |
+            ../releases/*
+            installer/test-results/*
+

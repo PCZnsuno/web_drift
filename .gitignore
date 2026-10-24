@@ -1,0 +1,4 @@
+installer/stage/
+installer/test-results/
+Paperboat-Motion.exe
+*.log
